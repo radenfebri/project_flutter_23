@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:project_workshop_mobile/main.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Register'),
+          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -142,7 +144,6 @@ class _RegisterState extends State<Register> {
                         child: Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Container(
-                        // margin: EdgeInsets.fromLTRB(200, 20, 50, 0),
                         child: RaisedButton(
                           child: Text(
                             'Register',
@@ -164,12 +165,29 @@ class _RegisterState extends State<Register> {
                       ),
                     )),
                     Center(
-                      child: Container(
-                        padding: EdgeInsets.only(top: 60),
-                        child: Text(
-                          'SIGN IN',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          child: RaisedButton(
+                            child: Text(
+                              'Dashboard',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyHomePage(title: "Dashboard")),
+                              );
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            color: Colors.blueGrey,
+                          ),
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: 50,
                         ),
                       ),
                     )
