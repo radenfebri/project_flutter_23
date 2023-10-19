@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:project_workshop_mobile/main.dart';
+import 'package:date_field/date_field.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,6 +14,11 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   Map userData = {};
   final _formkey = GlobalKey<FormState>();
+
+  String? _selectedGender;
+  String? _selectedAgama;
+  DateTime? _selectedDate;
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +48,10 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
+
+
                     Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         // validator: ((value) {
                         // if (value == null || value.isEmpty) {
@@ -61,36 +69,40 @@ class _RegisterState extends State<Register> {
                         ]),
 
                         decoration: InputDecoration(
-                            hintText: 'Enter Full Name',
-                            labelText: 'Full Name',
+                            hintText: 'Username',
+                            labelText: 'Username',
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Colors.green,
+                              color: Colors.blue,
                             ),
-                            errorStyle: TextStyle(fontSize: 18.0),
+                            errorStyle: TextStyle(fontSize: 10.0),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(9.0)))),
                       ),
                     ),
+
+
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         validator: MultiValidator([
-                          RequiredValidator(errorText: 'Enter last named'),
+                          RequiredValidator(
+                              errorText: 'Please enter Full Name'),
                           MinLengthValidator(3,
                               errorText:
-                                  'Last name should be atleast 3 charater'),
+                                  'Full Name should be atleast 3 charater'),
                         ]),
                         decoration: InputDecoration(
-                            hintText: 'Enter last Name',
-                            labelText: 'Last named',
+                            hintText: 'Full Name',
+                            labelText: 'Full named',
                             prefixIcon: Icon(
                               Icons.person,
-                              color: Colors.grey,
+                              color: Colors.blue,
                             ),
-                            errorStyle: TextStyle(fontSize: 18.0),
+                            errorStyle: TextStyle(fontSize: 10.0),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red),
                                 borderRadius:
@@ -112,7 +124,7 @@ class _RegisterState extends State<Register> {
                               Icons.email,
                               color: Colors.lightBlue,
                             ),
-                            errorStyle: TextStyle(fontSize: 18.0),
+                            errorStyle: TextStyle(fontSize: 10.0),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red),
                                 borderRadius:
@@ -122,45 +134,183 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        obscureText: true,
                         validator: MultiValidator([
-                          RequiredValidator(errorText: 'Enter mobile number'),
-                          PatternValidator(r'(^[0,9]{10}$)',
-                              errorText: 'enter vaid mobile number'),
+                          RequiredValidator(errorText: 'Enter your Password'),
+                          EmailValidator(
+                              errorText: 'Please correct password filled'),
                         ]),
                         decoration: InputDecoration(
-                            hintText: 'Mobile',
-                            labelText: 'Mobile',
+                            hintText: 'Password',
+                            labelText: 'Password',
                             prefixIcon: Icon(
-                              Icons.phone,
-                              color: Colors.grey,
+                              Icons.key,
+                              color: Colors.lightBlue,
                             ),
+                            errorStyle: TextStyle(fontSize: 10.0),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(9)))),
+                                    BorderRadius.all(Radius.circular(9.0)))),
+                      ),
+                    ),
+
+
+
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DateTimeFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Birthday',
+                    labelText: 'Birthday',
+                    prefixIcon: Icon(
+                      Icons.date_range,
+                      color: Colors.lightBlue,
+                    ),
+                    errorStyle: TextStyle(fontSize: 10.0),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.all(Radius.circular(9.0)),
+                    ),
+                  ),
+                  mode: DateTimeFieldPickerMode.date,
+                  autovalidateMode: AutovalidateMode.always,
+                  onDateSelected: (DateTime selectedDate) {
+                    setState(() {
+                      _selectedDate = selectedDate;
+                    });
+                  },
+                ),
+              ),
+
+
+
+
+
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedAgama,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedAgama = newValue;
+                          });
+                        },
+                        items: <String>['Laki-laki', 'Perempuan']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Pilih jenis kelamin';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Jenis Kelamin',
+                          labelText: 'Jenis Kelamin',
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.blue,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(9)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField<String>(
+                        value: _selectedGender,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedGender = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Islam',
+                          'Hindu',
+                          'Budha',
+                          'Kristen',
+                          'Katolik'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Pilih Agama';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Agama',
+                          labelText: 'Agama',
+                          prefixIcon: Icon(
+                            Icons.privacy_tip,
+                            color: Colors.blue,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.all(Radius.circular(9)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        validator: MultiValidator([
+                          RequiredValidator(errorText: 'Enter your Address'),
+                          // Tambahkan validasi sesuai kebutuhan
+                        ]),
+                        decoration: InputDecoration(
+                          hintText: 'Alamat',
+                          labelText: 'Alamat',
+                          prefixIcon: Icon(
+                            Icons
+                                .location_on, // Menggunakan ikon lokasi untuk alamat
+                            color: Colors.blue,
+                          ),
+                          errorStyle: TextStyle(fontSize: 10.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(9.0)),
+                          ),
+                        ),
                       ),
                     ),
                     Center(
-                        child: Padding(
+                      child: Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Container(
-                        child: RaisedButton(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              print('Form submitted');
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blue,
+                          ),
                           child: Text(
                             'Register',
                             style: TextStyle(color: Colors.white, fontSize: 22),
                           ),
-                          onPressed: () {
-                            if (_formkey.currentState!.validate()) {
-                              print('form submiitted');
-                            }
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          color: Colors.blue,
                         ),
-
                         width: MediaQuery.of(context).size.width,
-
                         height: 50,
                       ),
                     )),
@@ -168,23 +318,29 @@ class _RegisterState extends State<Register> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child: RaisedButton(
-                            child: Text(
-                              'Dashboard',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors
+                                  .blueGrey, // Warna latar belakang tombol
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(30), // Bentuk tombol
+                              ),
                             ),
                             onPressed: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const MyHomePage(title: "Dashboard")),
+                                  builder: (context) =>
+                                      const MyHomePage(title: "Dashboard"),
+                                ),
                               );
                             },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            color: Colors.blueGrey,
+                            child: Text(
+                              'Dashboard',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
                           ),
                           width: MediaQuery.of(context).size.width / 2,
                           height: 50,
