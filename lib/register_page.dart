@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:project_workshop_mobile/main.dart';
@@ -144,19 +143,20 @@ class _RegisterState extends State<Register> {
                         child: Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: Container(
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text(
                             'Register',
                             style: TextStyle(color: Colors.white, fontSize: 22),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
                           ),
                           onPressed: () {
                             if (_formkey.currentState!.validate()) {
                               print('form submiitted');
                             }
                           },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          color: Colors.blue,
                         ),
 
                         width: MediaQuery.of(context).size.width,
@@ -168,11 +168,15 @@ class _RegisterState extends State<Register> {
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Container(
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             child: Text(
                               'Dashboard',
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
                             ),
                             onPressed: () {
                               Navigator.push(
@@ -182,9 +186,6 @@ class _RegisterState extends State<Register> {
                                         const MyHomePage(title: "Dashboard")),
                               );
                             },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            color: Colors.blueGrey,
                           ),
                           width: MediaQuery.of(context).size.width / 2,
                           height: 50,
