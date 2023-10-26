@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:project_workshop_mobile/main.dart';
-import 'package:date_field/date_field.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -12,13 +11,15 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  Map userData = {};
   final _formkey = GlobalKey<FormState>();
 
-  String? _selectedGender;
-  String? _selectedAgama;
+  String? _selectedGender, _selectedAgama;
   DateTime? _selectedDate;
-
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +68,8 @@ class _RegisterState extends State<Register> {
                           MinLengthValidator(3,
                               errorText: 'Minimum 3 charecter filled name'),
                         ]),
-
-                        decoration: InputDecoration(
+                        controller: _usernameController,
+                        decoration: const InputDecoration(
                             hintText: 'Username',
                             labelText: 'Username',
                             prefixIcon: Icon(
@@ -95,7 +96,8 @@ class _RegisterState extends State<Register> {
                               errorText:
                                   'Full Name should be atleast 3 charater'),
                         ]),
-                        decoration: InputDecoration(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
                             hintText: 'Full Name',
                             labelText: 'Full named',
                             prefixIcon: Icon(
@@ -117,7 +119,8 @@ class _RegisterState extends State<Register> {
                           EmailValidator(
                               errorText: 'Please correct email filled'),
                         ]),
-                        decoration: InputDecoration(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                             hintText: 'Email',
                             labelText: 'Email',
                             prefixIcon: Icon(
@@ -137,10 +140,11 @@ class _RegisterState extends State<Register> {
                         obscureText: true,
                         validator: MultiValidator([
                           RequiredValidator(errorText: 'Enter your Password'),
-                          EmailValidator(
+                          MinLengthValidator(8,
                               errorText: 'Please correct password filled'),
                         ]),
-                        decoration: InputDecoration(
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
                             hintText: 'Password',
                             labelText: 'Password',
                             prefixIcon: Icon(
@@ -154,40 +158,32 @@ class _RegisterState extends State<Register> {
                                     BorderRadius.all(Radius.circular(9.0)))),
                       ),
                     ),
-
-
-
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DateTimeFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Birthday',
-                    labelText: 'Birthday',
-                    prefixIcon: Icon(
-                      Icons.date_range,
-                      color: Colors.lightBlue,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateTimeFormField(
+                        decoration: const InputDecoration(
+                          hintText: 'Birthday',
+                          labelText: 'Birthday',
+                          prefixIcon: Icon(
+                            Icons.date_range,
+                            color: Colors.lightBlue,
+                          ),
+                          errorStyle: TextStyle(fontSize: 10.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(9.0)),
+                          ),
+                        ),
+                        mode: DateTimeFieldPickerMode.date,
+                        autovalidateMode: AutovalidateMode.always,
+                        onDateSelected: (DateTime selectedDate) {
+                          setState(() {
+                            _selectedDate = selectedDate;
+                          });
+                        },
+                      ),
                     ),
-                    errorStyle: TextStyle(fontSize: 10.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red),
-                      borderRadius: BorderRadius.all(Radius.circular(9.0)),
-                    ),
-                  ),
-                  mode: DateTimeFieldPickerMode.date,
-                  autovalidateMode: AutovalidateMode.always,
-                  onDateSelected: (DateTime selectedDate) {
-                    setState(() {
-                      _selectedDate = selectedDate;
-                    });
-                  },
-                ),
-              ),
-
-
-
-
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField<String>(
@@ -210,7 +206,7 @@ class _RegisterState extends State<Register> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Jenis Kelamin',
                           labelText: 'Jenis Kelamin',
                           prefixIcon: Icon(
@@ -251,7 +247,7 @@ class _RegisterState extends State<Register> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Agama',
                           labelText: 'Agama',
                           prefixIcon: Icon(
@@ -272,12 +268,13 @@ class _RegisterState extends State<Register> {
                           RequiredValidator(errorText: 'Enter your Address'),
                           // Tambahkan validasi sesuai kebutuhan
                         ]),
-                        decoration: InputDecoration(
+                        controller: _addressController,
+                        decoration: const InputDecoration(
                           hintText: 'Alamat',
                           labelText: 'Alamat',
                           prefixIcon: Icon(
-                            Icons
-                                .location_on, // Menggunakan ikon lokasi untuk alamat
+                            Icons.location_on,
+                            // Menggunakan ikon lokasi untuk alamat
                             color: Colors.blue,
                           ),
                           errorStyle: TextStyle(fontSize: 10.0),
@@ -296,7 +293,14 @@ class _RegisterState extends State<Register> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formkey.currentState!.validate()) {
-                              print('Form submitted');
+                              print(_usernameController.text);
+                              print(_nameController.text);
+                              print(_emailController.text);
+                              print(_passwordController.text);
+                              print(_selectedDate);
+                              print(_selectedGender);
+                              print(_selectedAgama);
+                              print(_addressController.text);
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -305,7 +309,7 @@ class _RegisterState extends State<Register> {
                             ),
                             primary: Colors.blue,
                           ),
-                          child: Text(
+                          child: const Text(
                             'Register',
                             style: TextStyle(color: Colors.white, fontSize: 22),
                           ),
@@ -336,7 +340,7 @@ class _RegisterState extends State<Register> {
                                 ),
                               );
                             },
-                            child: Text(
+                            child: const Text(
                               'Dashboard',
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
