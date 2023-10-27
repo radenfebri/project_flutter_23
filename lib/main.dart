@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_workshop_mobile/controllers/register_controller.dart';
 import 'package:project_workshop_mobile/register_page.dart';
 
 void main() {
@@ -28,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final register = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,43 +40,44 @@ class _MyHomePageState extends State<MyHomePage> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const Text(
-            'Selamat datang di aplikasi Flutter Penjualan Buku!',
-          ),
-          
-          SizedBox(height: 50), // Jarak vertikal antara teks dan tombol
-          ElevatedButton(
-          onPressed: () {
-            // Fungsi yang akan dijalankan saat tombol ditekan
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Register()), // Navigasi ke halaman Register
-            );
-          },
-          child: Text(
-            'Getting Started',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20, // Ukuran teks
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Selamat datang ${register.nameController.text} di aplikasi Flutter Penjualan Buku!',
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+
+            SizedBox(height: 50), // Jarak vertikal antara teks dan tombol
+            ElevatedButton(
+              onPressed: () {
+                // Fungsi yang akan dijalankan saat tombol ditekan
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Register()), // Navigasi ke halaman Register
+                );
+              },
+              child: Text(
+                'Getting Started',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20, // Ukuran teks
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                fixedSize: Size(200, 50), // Atur ukuran tombol (lebar x tinggi)
+                // Tambahan gaya tombol seperti warna latar belakang, bentuk, dll.
+              ),
             ),
-            fixedSize: Size(200, 50), // Atur ukuran tombol (lebar x tinggi)
-            // Tambahan gaya tombol seperti warna latar belakang, bentuk, dll.
-          ),
+          ],
         ),
-        ],
       ),
-    ),
 
 
-      
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     Navigator.push(

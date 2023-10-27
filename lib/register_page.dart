@@ -1,6 +1,8 @@
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:get/get.dart';
+import 'package:project_workshop_mobile/controllers/register_controller.dart';
 import 'package:project_workshop_mobile/main.dart';
 
 class Register extends StatefulWidget {
@@ -12,14 +14,10 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formkey = GlobalKey<FormState>();
+  final RegisterController controller = Get.find();
 
   String? _selectedGender, _selectedAgama;
-  DateTime? _selectedDate;
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
+  DateTime? _selectedBirth;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +40,6 @@ class _RegisterState extends State<Register> {
                         child: Container(
                           width: 200,
                           height: 150,
-                          //decoration: BoxDecoration(
-                          //borderRadius: BorderRadius.circular(40),
-                          //border: Border.all(color: Colors.blueGrey)),
                           child: Image.asset('assets/logo.png'),
                         ),
                       ),
@@ -54,21 +49,12 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        // validator: ((value) {
-                        // if (value == null || value.isEmpty) {
-                        //	 return 'please enter some text';
-                        // } else if (value.length < 5) {
-                        //	 return 'Enter atleast 5 Charecter';
-                        // }
-
-                        // return null;
-                        // }),
                         validator: MultiValidator([
                           RequiredValidator(errorText: 'Please enter name'),
                           MinLengthValidator(3,
                               errorText: 'Minimum 3 charecter filled name'),
                         ]),
-                        controller: _usernameController,
+                        controller: controller.usernameController,
                         decoration: const InputDecoration(
                             hintText: 'Username',
                             labelText: 'Username',
@@ -83,9 +69,6 @@ class _RegisterState extends State<Register> {
                                     BorderRadius.all(Radius.circular(9.0)))),
                       ),
                     ),
-
-
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
@@ -96,7 +79,7 @@ class _RegisterState extends State<Register> {
                               errorText:
                                   'Full Name should be atleast 3 charater'),
                         ]),
-                        controller: _nameController,
+                        controller: controller.nameController,
                         decoration: const InputDecoration(
                             hintText: 'Full Name',
                             labelText: 'Full named',
@@ -119,7 +102,7 @@ class _RegisterState extends State<Register> {
                           EmailValidator(
                               errorText: 'Please correct email filled'),
                         ]),
-                        controller: _emailController,
+                        controller: controller.emailController,
                         decoration: const InputDecoration(
                             hintText: 'Email',
                             labelText: 'Email',
@@ -143,7 +126,7 @@ class _RegisterState extends State<Register> {
                           MinLengthValidator(8,
                               errorText: 'Please correct password filled'),
                         ]),
-                        controller: _passwordController,
+                        controller: controller.passwordController,
                         decoration: const InputDecoration(
                             hintText: 'Password',
                             labelText: 'Password',
@@ -179,7 +162,7 @@ class _RegisterState extends State<Register> {
                         autovalidateMode: AutovalidateMode.always,
                         onDateSelected: (DateTime selectedDate) {
                           setState(() {
-                            _selectedDate = selectedDate;
+                            _selectedBirth = selectedDate;
                           });
                         },
                       ),
@@ -268,7 +251,7 @@ class _RegisterState extends State<Register> {
                           RequiredValidator(errorText: 'Enter your Address'),
                           // Tambahkan validasi sesuai kebutuhan
                         ]),
-                        controller: _addressController,
+                        controller: controller.addressController,
                         decoration: const InputDecoration(
                           hintText: 'Alamat',
                           labelText: 'Alamat',
@@ -293,14 +276,12 @@ class _RegisterState extends State<Register> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formkey.currentState!.validate()) {
-                              print(_usernameController.text);
-                              print(_nameController.text);
-                              print(_emailController.text);
-                              print(_passwordController.text);
-                              print(_selectedDate);
-                              print(_selectedGender);
-                              print(_selectedAgama);
-                              print(_addressController.text);
+                              controller.birthdayController.value =
+                                  _selectedBirth as TextEditingValue;
+                              controller.genderController.value =
+                                  _selectedGender as TextEditingValue;
+                              controller.religionController.value =
+                                  _selectedAgama as TextEditingValue;
                             }
                           },
                           style: ElevatedButton.styleFrom(
