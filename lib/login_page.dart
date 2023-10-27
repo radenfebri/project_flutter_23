@@ -1,11 +1,9 @@
-import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:project_workshop_mobile/controllers/register_controller.dart';
 import 'package:project_workshop_mobile/dashboard_page.dart';
 import 'package:project_workshop_mobile/forgot-pw_page.dart';
-import 'package:project_workshop_mobile/main.dart';
 import 'package:project_workshop_mobile/register_page.dart';
 
 class Login extends StatefulWidget {
@@ -17,21 +15,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
-  // final LoginController controller = Get.find();
-
-  String? _selectedGender, _selectedAgama;
-  DateTime? _selectedBirth;
+  final register = Get.put(RegisterController());
+  TextEditingController setUsername = TextEditingController();
+  TextEditingController setPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Form(
-                key: _formkey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
@@ -49,22 +46,22 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         validator: MultiValidator([
-                          RequiredValidator(errorText: 'Please enter name'),
-                          MinLengthValidator(3,
-                              errorText: 'Minimum 3 charecter filled name'),
-                        ]),
-                        // controller: controller.usernameController,
-                        decoration: const InputDecoration(
-                            hintText: 'Username',
-                            labelText: 'Username',
-                            prefixIcon: Icon(
-                              Icons.person,
-                              color: Colors.blue,
-                            ),
-                            errorStyle: TextStyle(fontSize: 10.0),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius:
+                      RequiredValidator(errorText: 'Please enter name'),
+                      MinLengthValidator(3,
+                          errorText: 'Minimum 3 charecter filled name'),
+                    ]),
+                    controller: setUsername,
+                    decoration: const InputDecoration(
+                        hintText: 'Username',
+                        labelText: 'Username',
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Colors.blue,
+                        ),
+                        errorStyle: TextStyle(fontSize: 10.0),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius:
                                     BorderRadius.all(Radius.circular(9.0)))),
                       ),
                     ),
@@ -73,27 +70,26 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         obscureText: true,
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: 'Enter your Password'),
-                          MinLengthValidator(8,
-                              errorText: 'Please correct password filled'),
-                        ]),
-                        // controller: controller.passwordController,
-                        decoration: const InputDecoration(
-                            hintText: 'Password',
-                            labelText: 'Password',
-                            prefixIcon: Icon(
-                              Icons.key,
-                              color: Colors.lightBlue,
-                            ),
-                            errorStyle: TextStyle(fontSize: 10.0),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                                borderRadius:
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: 'Enter your Password'),
+                      MinLengthValidator(8,
+                          errorText: 'Please correct password filled'),
+                    ]),
+                    controller: setPassword,
+                    decoration: const InputDecoration(
+                        hintText: 'Password',
+                        labelText: 'Password',
+                        prefixIcon: Icon(
+                          Icons.key,
+                          color: Colors.lightBlue,
+                        ),
+                        errorStyle: TextStyle(fontSize: 10.0),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red),
+                            borderRadius:
                                     BorderRadius.all(Radius.circular(9.0)))),
                       ),
                     ),
-
                   Center(
                       child: TextButton(
                             onPressed: () {
@@ -112,20 +108,22 @@ class _LoginState extends State<Login> {
                     
 
                   Center(
-                      child: TextButton(
-                            onPressed: () {
-                              // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman login
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));  
-                            },
-                            child: Text(
-                              'Lupa password',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ),
+                    child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPassword()));
+                    },
+                    child: Text(
+                      'Lupa password',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                      ),
                     ),
+                  ),
+                ),
                     
                     Center(
                       child: Padding(
@@ -133,17 +131,23 @@ class _LoginState extends State<Login> {
                       child: Container(
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_formkey.currentState!.validate()) {
-                              // controller.birthdayController.value =
-                              //     _selectedBirth as TextEditingValue;
-                              // controller.genderController.value =
-                              //     _selectedGender as TextEditingValue;
-                              // controller.religionController.value =
-                              //     _selectedAgama as TextEditingValue;
-
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard())); 
-                            }
-                          },
+                            if (_formkey.currentState!.validate() &&
+                            setUsername.text ==
+                                register.usernameController.text &&
+                            setPassword.text ==
+                                register.passwordController.text) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Dashboard()));
+                        } else {
+                          print(setUsername.text);
+                          print(register.usernameController.text);
+                          print(setPassword.text);
+                          print(register.passwordController.text);
+                          //TODO Kasih notif error login bang
+                        }
+                      },
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
