@@ -6,6 +6,7 @@ import 'package:project_workshop_mobile/controllers/register_controller.dart';
 import 'package:project_workshop_mobile/dashboard_page.dart';
 import 'package:project_workshop_mobile/forgot-pw_page.dart';
 import 'package:project_workshop_mobile/main.dart';
+import 'package:project_workshop_mobile/register_page.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -93,8 +94,24 @@ class _LoginState extends State<Login> {
                       ),
                     ),
 
+                  Center(
+                      child: TextButton(
+                            onPressed: () {
+                              // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman login
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));  
+                            },
+                            child: Text(
+                              'Belum memiliki akun?',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                    ),
+                    
 
-                                        Center(
+                  Center(
                       child: TextButton(
                             onPressed: () {
                               // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman login
