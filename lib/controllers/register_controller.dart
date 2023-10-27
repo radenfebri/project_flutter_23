@@ -6,13 +6,16 @@ class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final birthdayController = TextEditingController();
-  final genderController = TextEditingController();
-  final religionController = TextEditingController();
+  DateTime? birthdayController;
+  TextEditingController genderController = TextEditingController();
+  TextEditingController religionController = TextEditingController();
   final addressController = TextEditingController();
 
   @override
-  void onInit() {}
+  void onInit() {
+    super.onInit();
+    birthdayController = DateTime.now();
+  }
 
   @override
   void onReady() {
@@ -21,7 +24,13 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
+    usernameController.dispose();
     nameController.dispose();
+    emailController.dispose();
     passwordController.dispose();
+    genderController.dispose();
+    religionController.dispose();
+    addressController.dispose();
+    super.onClose();
   }
 }

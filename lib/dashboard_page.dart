@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:project_workshop_mobile/controllers/register_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const Dashboard(),
+      home: Dashboard(),
     );
   }
 }
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+  Dashboard({Key? key}) : super(key: key);
 
   Future<void> _logout(BuildContext context) async {
     // Logika logout disini
@@ -28,76 +31,73 @@ class Dashboard extends StatelessWidget {
         context, MaterialPageRoute(builder: (context) => const Login()));
   }
 
+  final register = Get.put(RegisterController());
+
   @override
   Widget build(BuildContext context) {
+    var date = DateFormat('dd-MM-yyyy').format(register.birthdayController!);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Book Store'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {
-              // Tambahkan aksi notifikasi di sini
-            },
+        appBar: AppBar(
+          title: const Text('Book Store'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.notifications),
+              onPressed: () {
+                // Tambahkan aksi notifikasi di sini
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () {
+                // Tambahkan aksi logout saat tombol ditekan
+                _showLogoutConfirmationDialog(context);
+                // _logout(context);
+              },
+            ),
+          ],
+        ),
+        body: Center(
+          child: ListView(
+            padding: EdgeInsets.all(16),
+            children: [
+              ListTile(
+                title: Text('Nama Lengkap'),
+                subtitle: Text(register.nameController.text),
+                leading: Icon(Icons.person),
+              ),
+              ListTile(
+                title: Text('Username'),
+                subtitle: Text(register.usernameController.text),
+                leading: Icon(Icons.person),
+              ),
+              ListTile(
+                title: Text('Email'),
+                subtitle: Text(register.emailController.text),
+                leading: Icon(Icons.email),
+              ),
+              ListTile(
+                title: Text('Tanggal Lahir'),
+                subtitle: Text(date),
+                leading: Icon(Icons.date_range),
+              ),
+              ListTile(
+                title: Text('Gender'),
+                subtitle: Text(register.genderController.text),
+                leading: Icon(Icons.search),
+              ),
+              ListTile(
+                title: Text('Agama'),
+                subtitle: Text(register.religionController.text),
+                leading: Icon(Icons.privacy_tip),
+              ),
+              ListTile(
+                title: Text('Alamat'),
+                subtitle: Text(register.addressController.text),
+                leading: Icon(Icons.location_on),
+              ),
+              SizedBox(height: 16),
+            ],
           ),
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              // Tambahkan aksi logout saat tombol ditekan
-              _showLogoutConfirmationDialog(context);
-              // _logout(context);
-            },
-          ),
-        ],
-      ),
-      body: Center(
-  child: ListView(
-    padding: EdgeInsets.all(16),
-    children: [
-      ListTile(
-        title: Text('Nama Lengkap'),
-        subtitle: Text('John'), // Ganti dengan username pengguna
-        leading: Icon(Icons.person),
-      ),
-      ListTile(
-        title: Text('Username'),
-        subtitle: Text('john_doe123'), // Ganti dengan username pengguna
-        leading: Icon(Icons.person),
-      ),
-      ListTile(
-        title: Text('Email'),
-        subtitle: Text('johndoe@example.com'), // Ganti dengan alamat email pengguna
-        leading: Icon(Icons.email),
-      ),
-      ListTile(
-        title: Text('Tanggal Lahir'),
-        subtitle: Text('23 Maret 2001'), // Ganti dengan alamat email pengguna
-        leading: Icon(Icons.date_range),
-      ),
-      ListTile(
-        title: Text('Gender'),
-        subtitle: Text('Laki-laki'), // Ganti dengan alamat email pengguna
-        leading: Icon(Icons.search),
-      ),
-      ListTile(
-        title: Text('Agama'),
-        subtitle: Text('Islam'), // Ganti dengan alamat email pengguna
-        leading: Icon(Icons.privacy_tip),
-      ),
-      ListTile(
-        title: Text('Alamat'),
-        subtitle: Text('Jl. Contoh No. 123, Kota Contoh'), // Ganti dengan alamat pengguna
-        leading: Icon(Icons.location_on),
-      ),
-      SizedBox(height: 16), // Berikan sedikit jarak antara informasi akun dan tombol
-      ElevatedButton(
-        onPressed: () {
-          // Tambahkan aksi untuk menu 1
-        },
-        child: const Text('Edit'),
-      ),
-    ],
-  ),
 )
 
     );
@@ -141,12 +141,11 @@ Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
           ),
           TextButton(
             onPressed: () {
-              // Lakukan logout disini
-              // Anda dapat menghapus data sesi, menghapus token, dll.
+              // Hapus data sesi atau token yang sedang login di sini (sesuai kebutuhan)
+              // Contoh: Anda bisa menghapus token dengan menghapus cookie atau menyimpannya dalam Shared Preferences.
 
               // Navigasi ke halaman login setelah logout
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Login()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
             },
             child: const Text('Logout'),
           ),
@@ -155,3 +154,4 @@ Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
     },
   );
 }
+
