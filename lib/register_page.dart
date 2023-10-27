@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:project_workshop_mobile/controllers/register_controller.dart';
+import 'package:project_workshop_mobile/login_page.dart';
 import 'package:project_workshop_mobile/main.dart';
 
 class Register extends StatefulWidget {
@@ -22,10 +23,6 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Register'),
-          automaticallyImplyLeading: false,
-        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -269,6 +266,26 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
+
+                    Center(
+                      child: TextButton(
+                            onPressed: () {
+                              // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman login
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));  
+                            },
+                            child: Text(
+                              'Apakah Anda sudah memiliki akun? Klik untuk login',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                    ),
+
+
+
+
                     Center(
                       child: Padding(
                       padding: const EdgeInsets.all(18.0),
@@ -298,39 +315,6 @@ class _RegisterState extends State<Register> {
                         height: 50,
                       ),
                     )),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors
-                                  .blueGrey, // Warna latar belakang tombol
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(30), // Bentuk tombol
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MyHomePage(title: "Dashboard"),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              'Dashboard',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                          ),
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: 50,
-                        ),
-                      ),
-                    )
                   ],
                 )),
           ),
