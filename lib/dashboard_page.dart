@@ -51,30 +51,55 @@ class Dashboard extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                // Tambahkan aksi untuk menu 1
-              },
-              child: const Text('Menu 1'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Tambahkan aksi untuk menu 2
-              },
-              child: const Text('Menu 2'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Tambahkan aksi untuk menu 3
-              },
-              child: const Text('Menu 3'),
-            ),
-          ],
-        ),
+  child: ListView(
+    padding: EdgeInsets.all(16),
+    children: [
+      ListTile(
+        title: Text('Nama Lengkap'),
+        subtitle: Text('John'), // Ganti dengan username pengguna
+        leading: Icon(Icons.person),
       ),
+      ListTile(
+        title: Text('Username'),
+        subtitle: Text('john_doe123'), // Ganti dengan username pengguna
+        leading: Icon(Icons.person),
+      ),
+      ListTile(
+        title: Text('Email'),
+        subtitle: Text('johndoe@example.com'), // Ganti dengan alamat email pengguna
+        leading: Icon(Icons.email),
+      ),
+      ListTile(
+        title: Text('Tanggal Lahir'),
+        subtitle: Text('23 Maret 2001'), // Ganti dengan alamat email pengguna
+        leading: Icon(Icons.date_range),
+      ),
+      ListTile(
+        title: Text('Gender'),
+        subtitle: Text('Laki-laki'), // Ganti dengan alamat email pengguna
+        leading: Icon(Icons.search),
+      ),
+      ListTile(
+        title: Text('Agama'),
+        subtitle: Text('Islam'), // Ganti dengan alamat email pengguna
+        leading: Icon(Icons.privacy_tip),
+      ),
+      ListTile(
+        title: Text('Alamat'),
+        subtitle: Text('Jl. Contoh No. 123, Kota Contoh'), // Ganti dengan alamat pengguna
+        leading: Icon(Icons.location_on),
+      ),
+      SizedBox(height: 16), // Berikan sedikit jarak antara informasi akun dan tombol
+      ElevatedButton(
+        onPressed: () {
+          // Tambahkan aksi untuk menu 1
+        },
+        child: const Text('Edit'),
+      ),
+    ],
+  ),
+)
+
     );
   }
 }
