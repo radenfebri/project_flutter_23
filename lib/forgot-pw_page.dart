@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:project_workshop_mobile/controllers/register_controller.dart';
+import 'package:project_workshop_mobile/login_page.dart';
 import 'package:project_workshop_mobile/main.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -67,14 +68,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
 
 
-                                        Center(
+                    Center(
                       child: TextButton(
                             onPressed: () {
                               // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman ForgotPassword
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));  
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));  
                             },
                             child: Text(
-                              'Lupa password',
+                              'Login ke akun sekarang',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Colors.blue,
@@ -86,32 +87,32 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     Center(
                       child: Padding(
                       padding: const EdgeInsets.all(18.0),
-                      // child: Container(
-                      //   child: ElevatedButton(
-                      //     onPressed: () {
-                      //       if (_formkey.currentState!.validate()) {
-                      //         controller.birthdayController.value =
-                      //             _selectedBirth as TextEditingValue;
-                      //         controller.genderController.value =
-                      //             _selectedGender as TextEditingValue;
-                      //         controller.religionController.value =
-                      //             _selectedAgama as TextEditingValue;
-                      //       }
-                      //     },
-                      //     style: ElevatedButton.styleFrom(
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(30),
-                      //       ),
-                      //       primary: Colors.blue,
-                      //     ),
-                      //     child: const Text(
-                      //       'ForgotPassword',
-                      //       style: TextStyle(color: Colors.white, fontSize: 22),
-                      //     ),
-                      //   ),
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: 50,
-                      // ),
+                      child: Container(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // if (_formkey.currentState!.validate()) {
+                            //   controller.birthdayController.value =
+                            //       _selectedBirth as TextEditingValue;
+                            //   controller.genderController.value =
+                            //       _selectedGender as TextEditingValue;
+                            //   controller.religionController.value =
+                            //       _selectedAgama as TextEditingValue;
+                            // }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blue,
+                          ),
+                          child: const Text(
+                            'ForgotPassword',
+                            style: TextStyle(color: Colors.white, fontSize: 22),
+                          ),
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                      ),
                     )),
                   ],
                 )),
