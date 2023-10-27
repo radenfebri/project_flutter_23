@@ -6,9 +6,9 @@ class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final birthdayController = TextEditingController();
-  final genderController = TextEditingController();
-  final religionController = TextEditingController();
+  DateTime? birthdayController = DateTime.timestamp();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController religionController = TextEditingController();
   final addressController = TextEditingController();
 
   @override
@@ -21,6 +21,7 @@ class RegisterController extends GetxController {
 
   @override
   void onClose() {
+    //jika aplikasi ditutup controller data dibawah akan hilang
     nameController.dispose();
     passwordController.dispose();
   }

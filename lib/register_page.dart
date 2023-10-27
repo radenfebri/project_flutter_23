@@ -170,10 +170,10 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField<String>(
-                        value: _selectedAgama,
+                        value: _selectedGender,
                         onChanged: (String? newValue) {
                           setState(() {
-                            _selectedAgama = newValue;
+                            _selectedGender = newValue;
                           });
                         },
                         items: <String>['Laki-laki', 'Perempuan']
@@ -206,10 +206,10 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField<String>(
-                        value: _selectedGender,
+                        value: _selectedAgama,
                         onChanged: (String? newValue) {
                           setState(() {
-                            _selectedGender = newValue;
+                            _selectedAgama = newValue;
                           });
                         },
                         items: <String>[
@@ -276,12 +276,11 @@ class _RegisterState extends State<Register> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formkey.currentState!.validate()) {
-                              controller.birthdayController.value =
-                                  _selectedBirth as TextEditingValue;
-                              controller.genderController.value =
-                                  _selectedGender as TextEditingValue;
-                              controller.religionController.value =
-                                  _selectedAgama as TextEditingValue;
+                              controller.birthdayController = _selectedBirth;
+                              controller.genderController.text =
+                                  _selectedGender!;
+                              controller.religionController.text =
+                                  _selectedAgama!;
                             }
                           },
                           style: ElevatedButton.styleFrom(

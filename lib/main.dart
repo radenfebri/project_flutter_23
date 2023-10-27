@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Selamat datang ${register.nameController.text} di aplikasi Flutter Penjualan Buku!',
+              'Selamat datang ${register.religionController.text} di aplikasi Flutter Penjualan Buku!',
             ),
 
             SizedBox(height: 50), // Jarak vertikal antara teks dan tombol
