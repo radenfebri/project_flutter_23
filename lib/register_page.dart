@@ -284,8 +284,6 @@ class _RegisterState extends State<Register> {
                     ),
 
 
-
-
                     Center(
                       child: Padding(
                       padding: const EdgeInsets.all(18.0),
