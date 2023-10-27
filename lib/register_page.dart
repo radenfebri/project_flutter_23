@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:project_workshop_mobile/controllers/register_controller.dart';
+import 'package:project_workshop_mobile/login_page.dart';
 import 'package:project_workshop_mobile/main.dart';
 
 class Register extends StatefulWidget {
@@ -265,6 +266,26 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
+
+                    Center(
+                      child: TextButton(
+                            onPressed: () {
+                              // Gantilah perintah ini dengan aksi yang sesuai, seperti pengalihan ke halaman login
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));  
+                            },
+                            child: Text(
+                              'Apakah Anda sudah memiliki akun? Klik untuk login',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                    ),
+
+
+
+
                     Center(
                       child: Padding(
                       padding: const EdgeInsets.all(18.0),

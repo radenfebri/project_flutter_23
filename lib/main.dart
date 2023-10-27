@@ -50,8 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          Register()), // Navigasi ke halaman Register
+                      builder: (context) => Register()), // Navigasi ke halaman Register
                 );
               },
               child: Text(
@@ -73,17 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => const Register()),
-      //     );
-      //   },
-      //   tooltip: 'Register',
-      //   child: const Icon(Icons.person_add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
