@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:project_workshop_mobile/controllers/register_controller.dart';
+import 'package:project_workshop_mobile/dashboard_page.dart';
 import 'package:project_workshop_mobile/forgot-pw_page.dart';
 import 'package:project_workshop_mobile/main.dart';
 
@@ -112,32 +113,34 @@ class _LoginState extends State<Login> {
                     Center(
                       child: Padding(
                       padding: const EdgeInsets.all(18.0),
-                      // child: Container(
-                      //   child: ElevatedButton(
-                      //     onPressed: () {
-                      //       if (_formkey.currentState!.validate()) {
-                      //         controller.birthdayController.value =
-                      //             _selectedBirth as TextEditingValue;
-                      //         controller.genderController.value =
-                      //             _selectedGender as TextEditingValue;
-                      //         controller.religionController.value =
-                      //             _selectedAgama as TextEditingValue;
-                      //       }
-                      //     },
-                      //     style: ElevatedButton.styleFrom(
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(30),
-                      //       ),
-                      //       primary: Colors.blue,
-                      //     ),
-                      //     child: const Text(
-                      //       'Login',
-                      //       style: TextStyle(color: Colors.white, fontSize: 22),
-                      //     ),
-                      //   ),
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: 50,
-                      // ),
+                      child: Container(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate()) {
+                              // controller.birthdayController.value =
+                              //     _selectedBirth as TextEditingValue;
+                              // controller.genderController.value =
+                              //     _selectedGender as TextEditingValue;
+                              // controller.religionController.value =
+                              //     _selectedAgama as TextEditingValue;
+
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard())); 
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blue,
+                          ),
+                          child: const Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white, fontSize: 22),
+                          ),
+                        ),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                      ),
                     )),
                   ],
                 )),

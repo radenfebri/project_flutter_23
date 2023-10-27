@@ -24,7 +24,8 @@ class Dashboard extends StatelessWidget {
     // Anda dapat menghapus data sesi, menghapus token, dll.
 
     // Navigasi ke halaman login setelah logout
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const Login()));
   }
 
   @override
@@ -43,7 +44,8 @@ class Dashboard extends StatelessWidget {
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               // Tambahkan aksi logout saat tombol ditekan
-              _logout(context);
+              _showLogoutConfirmationDialog(context);
+              // _logout(context);
             },
           ),
         ],
@@ -96,4 +98,35 @@ class Login extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _showLogoutConfirmationDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Logout Confirmation'),
+        content: const Text('Are you sure you want to logout?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              // Lakukan logout disini
+              // Anda dapat menghapus data sesi, menghapus token, dll.
+
+              // Navigasi ke halaman login setelah logout
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
+            },
+            child: const Text('Logout'),
+          ),
+        ],
+      );
+    },
+  );
 }
